@@ -13,11 +13,11 @@ function App() {
       <div className="row">
         <div className="col">
           <h2>Sync post</h2>
-          <Posts posts={[1, 2, 3]} />
+          <Posts posts={[]} />
         </div>
         <div className="col">
           <h2>Async post</h2>
-          <FetchedPosts />
+          <FetchedPosts posts={[]} />
         </div>
       </div>
     </div>
