@@ -3,6 +3,7 @@ import Post from "./Post";
 import { useSelector } from "react-redux";
 
 const Posts = () => {
+  // const syncPosts = [];
   const syncPosts = useSelector((state) => state.posts.posts);
   // console.log(syncPosts);
   if (!syncPosts.length) {
@@ -11,7 +12,7 @@ const Posts = () => {
   return syncPosts.map((post) => {
     return (
       <>
-        <Post post={post} key={post} />
+        <Post post={post} key={post.id} />
       </>
     );
   });

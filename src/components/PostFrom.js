@@ -10,13 +10,14 @@ import { createPost } from "../redux/actions";
 //   }
 //   submitHandler = (event) => {
 //     event.preventDefault();
+//     const dispatch = useDispatch();
 //     const { title } = this.state;
 //     const newPost = {
 //       title,
 //       id: Date.now().toString(),
 //     };
 //     console.log("title", newPost);
-//     // createPost(newPost);
+//     dispatch(createPost(newPost));
 //   };
 //   changeInputHandler = (event) => {
 //     this.setState((prev) => ({
@@ -54,15 +55,18 @@ import { createPost } from "../redux/actions";
 
 const PostFrom = () => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState();
+  const [title, setTitle] = useState("");
   const submitHandler = (event) => {
     event.preventDefault();
     const newPost = {
       title,
       id: Date.now().toString(),
     };
-    console.log("title", newPost);
     dispatch(createPost(newPost));
+    setTitle("");
+  };
+  const onChangeHandle = (e) => {
+    setTitle(e.target.value);
   };
   return (
     <>
@@ -76,7 +80,7 @@ const PostFrom = () => {
             className="form-control"
             id="title"
             name="title"
-            onChange={(event) => setTitle(event.target.value)}
+            onChange={(e) => onChangeHandle(e)}
             value={title}
           />
         </div>
