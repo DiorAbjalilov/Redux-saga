@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createPost } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { createPost, showAlert } from "../redux/actions";
+import Alert from "./Alert";
 // export default class PostFrom extends Component {
 //   constructor(props) {
 //     super(props);
@@ -55,9 +56,13 @@ import { createPost } from "../redux/actions";
 
 const PostFrom = () => {
   const dispatch = useDispatch();
+  const text = useSelector((state) => state.app.alert);
   const [title, setTitle] = useState("");
   const submitHandler = (event) => {
     event.preventDefault();
+    if (!title.trim()) {
+      return dispatch(showAlert("Iltimos formani to'ldiring"));
+    }
     const newPost = {
       title,
       id: Date.now().toString(),
@@ -71,6 +76,7 @@ const PostFrom = () => {
   return (
     <>
       <form onSubmit={submitHandler}>
+        {text && <Alert text={text} />}
         <div className="form-group">
           <label htmlFor="title" className="form-label">
             Post sarlavhasi

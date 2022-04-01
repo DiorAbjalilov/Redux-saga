@@ -27,9 +27,14 @@ export function hideLoader() {
 }
 
 export function showAlert(text) {
-  return {
-    type: SHOW_ALERT,
-    payload: text,
+  return (dispatch) => {
+    dispatch({
+      type: SHOW_ALERT,
+      payload: text,
+    });
+    setTimeout(() => {
+      dispatch(hideAlert());
+    }, 3000);
   };
 }
 export function hideAlert() {
@@ -40,12 +45,17 @@ export function hideAlert() {
 
 export function fetchPosts() {
   return async (dispatch) => {
-    dispatch(showLoader());
-    const respons = await fetch("https://jsonplaceholder.typicode.com/posts");
-    const json = await respons.json();
-    setTimeout(() => {
-      dispatch({ type: FETCH_POSTS, payload: json });
-      dispatch(hideLoader());
-    }, 500);
+    try {
+      dispatch(showLoader());
+      const respons = await fetch("https://jsonplaceholder.typicode.com/posts");
+      const json = await respons.json();
+      setTimeout(() => {
+        dispatch({ type: FETCH_POSTS, payload: json });
+        dispatch(hideLoader());
+      }, 500);
+    } catch (err) {
+      dispatch(showAlert("Xato so'rov yuborildi"));
+      console.log("err", err);
+    }
   };
 }

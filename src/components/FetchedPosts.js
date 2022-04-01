@@ -8,7 +8,6 @@ const FetchedPosts = () => {
   const dispatch = useDispatch();
   const fetchedPost = useSelector((state) => state.posts.fetchedPosts);
   const loading = useSelector((state) => state.app.loading);
-  console.log(loading);
   if (loading) {
     return <Loading />;
   }
