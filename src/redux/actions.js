@@ -3,6 +3,7 @@ import {
   FETCH_POSTS,
   HIDE_ALERT,
   HIDE_LOADER,
+  REQUEST_POSTS,
   SHOW_ALERT,
   SHOW_LOADER,
 } from "./types";
@@ -44,18 +45,24 @@ export function hideAlert() {
 }
 
 export function fetchPosts() {
-  return async (dispatch) => {
-    try {
-      dispatch(showLoader());
-      const respons = await fetch("https://jsonplaceholder.typicode.com/posts");
-      const json = await respons.json();
-      setTimeout(() => {
-        dispatch({ type: FETCH_POSTS, payload: json });
-        dispatch(hideLoader());
-      }, 500);
-    } catch (err) {
-      dispatch(showAlert("Xato so'rov yuborildi"));
-      console.log("err", err);
-    }
+  return {
+    type: REQUEST_POSTS,
   };
 }
+
+// export function fetchPosts() {
+//   return async (dispatch) => {
+//     try {
+//       dispatch(showLoader());
+//       const respons = await fetch("https://jsonplaceholder.typicode.com/posts");
+//       const json = await respons.json();
+//       setTimeout(() => {
+//         dispatch({ type: FETCH_POSTS, payload: json });
+//         dispatch(hideLoader());
+//       }, 500);
+//     } catch (err) {
+//       dispatch(showAlert("Xato so'rov yuborildi"));
+//       console.log("err", err);
+//     }
+//   };
+// }
