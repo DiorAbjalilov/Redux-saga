@@ -56,38 +56,69 @@ import Alert from "./Alert";
 
 const PostFrom = () => {
   const dispatch = useDispatch();
-  const text = useSelector((state) => state.app.alert);
-  const [title, setTitle] = useState("");
+  const [userForm, setUserForm] = useState({
+    last_name: "",
+    first_name: "",
+    title: "",
+  });
   const submitHandler = (event) => {
     event.preventDefault();
-    if (!title.trim()) {
+    if (!userForm.last_name.trim()) {
       return dispatch(showAlert("Iltimos formani to'ldiring"));
     }
     const newPost = {
-      title,
+      userForm,
       id: Date.now().toString(),
     };
+    console.log(newPost);
     dispatch(createPost(newPost));
-    setTitle("");
+    setUserForm({
+      last_name: "",
+      first_name: "",
+      title: "",
+    });
   };
   const onChangeHandle = (e) => {
-    setTitle(e.target.value);
+    const cloneUserForm = userForm;
+    cloneUserForm[e.target.name] = e.target.value;
+    setUserForm(cloneUserForm);
   };
   return (
     <>
       <form onSubmit={submitHandler}>
-        {text && <Alert text={text} />}
         <div className="form-group">
-          <label htmlFor="title" className="form-label">
-            Post sarlavhasi
+          <label htmlFor="last_name" className="form-label">
+            Ismingiz
           </label>
           <input
+            type="text"
+            className="form-control"
+            id="last_name"
+            name="last_name"
+            onChange={(e) => onChangeHandle(e)}
+            // value={userForm.last_name}
+          />
+          <label htmlFor="first_name" className="form-label">
+            Familiyangiz
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="first_name"
+            name="first_name"
+            onChange={(e) => onChangeHandle(e)}
+            // value={userForm.first_name}
+          />
+          <label htmlFor="title" className="form-label">
+            Qo'shimcha ma'lumot
+          </label>
+          <textarea
             type="text"
             className="form-control"
             id="title"
             name="title"
             onChange={(e) => onChangeHandle(e)}
-            value={title}
+            // value={userForm.title}
           />
         </div>
         <button className="btn btn-success" type="submit">
