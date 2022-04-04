@@ -14,7 +14,7 @@ function App() {
           <PostFrom />
         </div>
         <div className="col">
-          <h2>Sync post</h2>
+          <h2>Sync posts</h2>
           <Posts />
         </div>
         <div className="col">
